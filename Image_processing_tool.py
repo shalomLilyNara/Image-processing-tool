@@ -99,7 +99,7 @@ def show_selection_screen():
         widget.destroy()
 
     tk.Label(root, text="Select a task:").pack(pady=10)
-    tk.Button(root, text="Convert PNG to JPG", command=lambda: on_select("convert")).pack(pady=5)
+    tk.Button(root, text="Convert PNG to JPG", command=lambda: on_select("convert")).pack(pady=10)
     tk.Button(root, text="Remove Image Background", command=lambda: on_select("remove_bg")).pack(pady=5)
 
 def show_conversion_screen():
@@ -135,6 +135,7 @@ def show_background_removal_screen():
 
 # Tkinter GUIの設定
 root = tk.Tk()
+root.geometry("400x400+900+500")
 root.title(u"Image Processing Tool")
 
 input_folder_var = tk.StringVar()
@@ -142,16 +143,5 @@ output_folder_var = tk.StringVar()
 
 show_selection_screen()
 
-"""
-tk.Label(root, text="Input Folder: ").pack(pady=5)
-tk.Entry(root, textvariable=input_folder_var, width=50).pack(pady=5)
-tk.Button(root, text="Browse", command=select_input_folder).pack(pady=5)
-
-tk.Label(root, text="Output Folder:").pack(pady=5)
-tk.Entry(root, textvariable=output_folder_var, width=50).pack(pady=5)
-tk.Button(root, text="Browse", command=select_output_folder).pack(pady=5)
-
-tk.Button(root, text="Convert", command=start_conversion).pack(pady=20)
-"""
 # メインループの開始
 root.mainloop()
