@@ -2,6 +2,7 @@ from PIL import Image
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import os
+import create_main_window
 
 def convert_png_to_jpg(input_folder, output_folder):
     """
@@ -53,6 +54,11 @@ def start_conversion(input_folder_var, output_folder_var):
     convert_png_to_jpg(input_folder, output_folder)
     messagebox.showinfo("Success", "Conversion completed successfully!")
 
+def close_window(root):
+    root.destroy()
+    create_main_window.main()
+
+
 def main():
     # Tkinter GUIの設定
     root = tk.Tk()
@@ -72,6 +78,8 @@ def main():
     tk.Button(root, text="Browse", command=lambda: select_output_folder(output_folder_var)).pack(pady=5)
 
     tk.Button(root, text="Convert", command=lambda: start_conversion(input_folder_var, output_folder_var)).pack(pady=20)
+    tk.Button(root, text="Back", command=lambda: close_window(root)).pack(pady=5)
+    tk.Button(root, text="Quit", command=lambda: root.destroy()).pack(pady=5)
 
     # メインループの開始
     root.mainloop()

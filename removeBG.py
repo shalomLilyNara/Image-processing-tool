@@ -2,6 +2,8 @@ from rembg import remove
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import os
+import create_main_window
+
 
 def remove_background(input_folder, output_folder):
 
@@ -48,6 +50,9 @@ def select_output_folder(output_folder_var):
     folder_selected = filedialog.askdirectory()
     output_folder_var.set(folder_selected)
 
+def close_window(root):
+    root.destroy()
+    create_main_window.main()
 
 def main():
     # Tkinter GUIの設定
@@ -70,7 +75,9 @@ def main():
     tk.Button(root, text="Browse", command=lambda: select_output_folder(output_folder_var)).pack(pady=5)
 
     tk.Button(root, text="Remove Background", command=lambda: start_background_removal(input_folder_var, output_folder_var)).pack(pady=20)
-    
+
+    tk.Button(root, text="Back", command=lambda: close_window(root)).pack(pady=5)
+    tk.Button(root, text="Quit", command=lambda: root.destroy()).pack(pady=5)
     # メインループの開始
     root.mainloop()
 
