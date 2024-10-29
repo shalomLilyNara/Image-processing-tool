@@ -2,6 +2,7 @@ from PIL import Image
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import os
+import create_main_window
 
 def convert_png_to_jpg(input_folder, output_folder):
     """
@@ -30,17 +31,18 @@ def convert_png_to_jpg(input_folder, output_folder):
                 img.convert("RGB").save(os.path.join(current_output_folder, jpg_filename), "JPEG")
                 print(f"Converted {filename} to {jpg_filename}")
 
-def select_input_folder():
+
+def select_input_folder(input_folder_var):
     """入力フォルダを選択するダイアログを表示"""
     folder_selected = filedialog.askdirectory()
     input_folder_var.set(folder_selected)
 
-def select_output_folder():
+def select_output_folder(output_folder_var):
     """出力フォルダを選択するダイアログを表示"""
     folder_selected = filedialog.askdirectory()
     output_folder_var.set(folder_selected)
 
-def start_conversion():
+def start_conversion(input_folder_var, output_folder_var):
     """変換処理を開始する"""
     input_folder = input_folder_var.get()
     output_folder = output_folder_var.get()
@@ -52,23 +54,36 @@ def start_conversion():
     convert_png_to_jpg(input_folder, output_folder)
     messagebox.showinfo("Success", "Conversion completed successfully!")
 
-# Tkinter GUIの設定
-root = tk.Tk()
-root.title("PNG to JPG Converter (Recursive)")
+def close_window(root):
+    root.destroy()
+    create_main_window.main()
 
-input_folder_var = tk.StringVar()
-output_folder_var = tk.StringVar()
 
-# フォルダ選択ボタン
-tk.Label(root, text="Input Folder:").pack(pady=5)
-tk.Entry(root, textvariable=input_folder_var, width=50).pack(pady=5)
-tk.Button(root, text="Browse", command=select_input_folder).pack(pady=5)
+def main():
+    # Tkinter GUIの設定
+    root = tk.Tk()
+    root.geometry("400x400+900+500")
+    root.title("PNG to JPG Converter (Recursive)")
 
-tk.Label(root, text="Output Folder:").pack(pady=5)
-tk.Entry(root, textvariable=output_folder_var, width=50).pack(pady=5)
-tk.Button(root, text="Browse", command=select_output_folder).pack(pady=5)
+    input_folder_var = tk.StringVar()
+    output_folder_var = tk.StringVar()
 
-tk.Button(root, text="Convert", command=start_conversion).pack(pady=20)
+    # フォルダ選択ボタン
+    tk.Label(root, text="Input Folder:").pack(pady=5)
+    tk.Entry(root, textvariable=input_folder_var, width=50).pack(pady=5)
+    tk.Button(root, text="Browse", command=lambda: select_input_folder(input_folder_var)).pack(pady=5)
 
-# メインループの開始
-root.mainloop()
+    tk.Label(root, text="Output Folder:").pack(pady=5)
+    tk.Entry(root, textvariable=output_folder_var, width=50).pack(pady=5)
+    tk.Button(root, text="Browse", command=lambda: select_output_folder(output_folder_var)).pack(pady=5)
+
+    tk.Button(root, text="Convert", command=lambda: start_conversion(input_folder_var, output_folder_var)).pack(pady=20)
+    tk.Button(root, text="Back", command=lambda: close_window(root)).pack(pady=5)
+    tk.Button(root, text="Quit", command=lambda: root.destroy()).pack(pady=5)
+
+    # メインループの開始
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    main()
