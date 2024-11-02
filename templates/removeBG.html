@@ -1,10 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <title>Background Remover</title>
-    </head>
-    <body style="text-align: center; font-size: x-large;">
-        <h1>Upload Images</h1>
-        <a href="/">Back</a>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Remover (Web)</title>
+</head>
+<body style="text-align: center; font-size: x-large;">
+    <h1>Background Remover</h1>
+    <form method="POST" action="/convert" enctype="multipart/form-data">
+        <label for="input_folder">Select files:</label>
+        <input type="file" name="input_folder" id="input_folder" required multiple>
+        <button type="submit">Remove Background</button>
+    </form>
+    <p></p>
+    <a href="/">Back</a>
+</body>
 </html>
